@@ -1,6 +1,5 @@
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../core/config/game_config.dart';
 import '../core/constants/game_constants.dart';

@@ -1,4 +1,3 @@
-import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import '../../core/constants/game_constants.dart';
 
