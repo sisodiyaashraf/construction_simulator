@@ -10,12 +10,13 @@ import 'excavator_pivot_config.dart';
 /// and displays real vehicle illustration sprites when available from the asset pipeline.
 class ExcavatorComponent extends PositionComponent {
   ExcavatorComponent({
-    super.position,
+    Vector2? position,
     Vector2? size,
     this.realVisualSprite,
     this.pivotConfig = const ExcavatorPivotConfig(),
     this.useModularPartsOnly = false,
   }) : super(
+          position: position ?? Vector2(0, GameConstants.groundSurfaceY),
           size: size ?? Vector2(340, 190),
           anchor: Anchor.bottomCenter,
         );

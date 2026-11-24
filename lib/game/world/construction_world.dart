@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import '../../data/repositories/game_asset_repository.dart';
+import '../../core/constants/game_constants.dart';
 import '../components/environment/construction_backdrop.dart';
 import '../components/environment/ground_component.dart';
 import '../components/excavator/excavator_component.dart';
@@ -56,6 +56,7 @@ class ConstructionWorld extends World with HasGameReference<ConstructionGame> {
 
     // 4. Add assembled excavator with configurable pivots and ground contact
     excavator = ExcavatorComponent(
+      position: Vector2(0, GameConstants.groundSurfaceY),
       realVisualSprite: excavatorSprite,
       pivotConfig: ExcavatorPivotConfig(
         showDebugPivots: game.config.showDebugPivots,
@@ -67,6 +68,7 @@ class ConstructionWorld extends World with HasGameReference<ConstructionGame> {
 
   /// Updates excavator visual display mode and pivot visibility dynamically.
   void applyConfig() {
+    if (!isLoaded) return;
     excavator.removeFromParent();
     final repo = game.assetRepository;
     final images = game.images;
@@ -78,6 +80,7 @@ class ConstructionWorld extends World with HasGameReference<ConstructionGame> {
     }
 
     excavator = ExcavatorComponent(
+      position: Vector2(0, GameConstants.groundSurfaceY),
       realVisualSprite: excavatorSprite,
       pivotConfig: ExcavatorPivotConfig(
         showDebugPivots: game.config.showDebugPivots,
