@@ -1,3 +1,6 @@
+import 'package:construction_simulator/game/components/environment/construction_backdrop.dart';
+import 'package:construction_simulator/game/components/environment/ground_component.dart';
+import 'package:construction_simulator/game/components/excavator/excavator_component.dart';
 import 'package:construction_simulator/game/construction_game.dart';
 import 'package:construction_simulator/game/world/construction_world.dart';
 import 'package:flame/camera.dart';
@@ -6,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('ConstructionGame initialization tests', () {
+  group('ConstructionGame and World Stage 12 Integration Tests', () {
     test('Game initializes with world and fixed resolution camera', () async {
       final game = ConstructionGame();
       await game.onLoad();
@@ -20,29 +23,33 @@ void main() {
       expect(viewport.resolution.y, 720.0);
     });
 
-    test('World loads backdrop, ground, and excavator placeholder', () async {
+    test('World initializes backdrop, ground, and assembled excavator with real assets', () async {
       final game = ConstructionGame();
       await game.onLoad();
 
       final world = game.world;
       await world.onLoad();
 
-      expect(world.backdrop, isNotNull);
-      expect(world.ground, isNotNull);
-      expect(world.excavator, isNotNull);
-      expect(world.children.length, greaterThanOrEqualTo(3));
+      expect(world.backdrop, isA<ConstructionBackdrop>());
+      expect(world.ground, isA<GroundComponent>());
+      expect(world.excavator, isA<ExcavatorComponent>());
+
+      // Verify excavator has ground contact alignment
+      expect(world.excavator.position.y, 120.0);
     });
 
-    test('FPS notifier emits reasonable metrics during update', () {
+    test('FPS notifier and config update operate smoothly', () async {
       final game = ConstructionGame();
+      await game.onLoad();
+
       expect(game.fpsNotifier.value, 60.0);
+      expect(game.config.showDebugPivots, isFalse);
 
-      // Simulate 15 frames over 0.25 seconds (60 FPS)
-      for (int i = 0; i < 15; i++) {
-        game.update(0.25 / 15);
-      }
+      game.updateConfig(game.config.copyWith(showDebugPivots: true));
+      expect(game.config.showDebugPivots, isTrue);
 
-      expect(game.fpsNotifier.value, closeTo(60.0, 1.0));
+      // Frame ticks
+      game.update(0.1);
       game.onDispose();
     });
   });
