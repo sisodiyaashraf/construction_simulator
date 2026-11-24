@@ -18,3 +18,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/README.md
+    - assets/images/
+    - assets/images/excavator/
+    - assets/images/environment/
+    - assets/images/vehicles/
+    - assets/images/objects/
+    - assets/spritesheets/
+    - assets/atlases/
+    - assets/metadata/
+    - assets/audio/
+    - assets/fonts/
