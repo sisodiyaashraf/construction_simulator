@@ -16,6 +16,7 @@ class ConstructionGame extends FlameGame<ConstructionWorld>
   ConstructionGame({
     GameConfig? config,
     GameAssetRepository? assetRepository,
+    this.autoPreload = true,
   })  : config = config ?? const GameConfig(),
         assetRepository = assetRepository ?? GameAssetRepository(),
         super(
@@ -23,6 +24,7 @@ class ConstructionGame extends FlameGame<ConstructionWorld>
           camera: GameCamera.create(),
         );
 
+  final bool autoPreload;
   GameConfig config;
   final GameAssetRepository assetRepository;
 
@@ -43,7 +45,9 @@ class ConstructionGame extends FlameGame<ConstructionWorld>
     configNotifier = ValueNotifier<GameConfig>(config);
 
     // Preload approved game assets before world initialisation
-    await assetRepository.preloadAssets(images);
+    if (autoPreload) {
+      await assetRepository.preloadAssets(images);
+    }
 
     await super.onLoad();
 

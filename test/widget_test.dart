@@ -8,7 +8,7 @@ void main() {
 
   testWidgets('DebugOverlayWidget mounts and displays stage 12 controls',
       (WidgetTester tester) async {
-    final game = ConstructionGame();
+    final game = ConstructionGame(autoPreload: false);
     await game.onLoad();
 
     await tester.pumpWidget(
@@ -22,7 +22,6 @@ void main() {
         ),
       ),
     );
-
     await tester.pump();
 
     // Verify key elements of the debug overlay

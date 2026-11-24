@@ -47,15 +47,18 @@ class DebugOverlayWidget extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.videogame_asset, size: 14, color: Colors.amber),
+                        const Icon(Icons.videogame_asset, size: 13, color: Colors.amber),
                         const SizedBox(width: 4),
-                        const Text(
-                          'CONSTRUCTION SIMULATOR (STAGE 12)',
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'monospace',
+                        Flexible(
+                          child: Text(
+                            'CONSTRUCTION SIMULATOR (STAGE 12)',
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.amber,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'monospace',
+                            ),
                           ),
                         ),
                       ],

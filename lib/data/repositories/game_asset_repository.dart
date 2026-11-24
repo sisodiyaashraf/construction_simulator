@@ -79,7 +79,7 @@ class GameAssetRepository {
     for (final def in _manifest.values) {
       final key = AssetPathResolver.resolveFlameImageKey(def.targetAssetPath);
       try {
-        final image = await images.load(key);
+        final image = await images.load(key).timeout(const Duration(seconds: 2));
         loadedImages[def.id] = image;
       } catch (e) {
         debugPrint('Warning: Game asset "${def.id}" ($key) failed to preload: $e');
